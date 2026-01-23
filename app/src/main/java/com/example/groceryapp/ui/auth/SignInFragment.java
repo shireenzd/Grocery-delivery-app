@@ -63,7 +63,7 @@ public class SignInFragment extends Fragment {
                 return;
             }
 
-            // TODO: connect backend / Firebase later
+
             Toast.makeText(requireContext(), "Sign in successful", Toast.LENGTH_SHORT).show();
         });
 
