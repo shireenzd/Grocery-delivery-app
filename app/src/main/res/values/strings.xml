@@ -4,7 +4,21 @@
     <string name="title_recipes">Recipes</string>
     <string name="title_cart">Cart</string>
     <string name="logout">Logout</string>
+    <string name="sign">Sign In</string>
     <string name="sign_in">Sign In</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="pass">Password</string>
+    <string name="forgot">Forgot Password?</string>
+
+    <string name="create_account">Create Account</string>
+    <string name="already">Already have an account? Sign In</string>
+    <string name="do_have_acc">Don&apos;t have an account? Register</string>
+
+    <string name="full_name">Full Name</string>
+    <string name="confirm">Confirm Password</string>
+    <string name="agree">I agree to Terms &amp; Privacy</string>
+
     <string name="recipe_time">25 mins</string>
     <string name="level">• Easy</string>
     <string name="recipe_name">Recipe Name</string>
@@ -12,6 +26,4 @@
     <string name="view_recipe">View Full Recipe</string>
     <string name="chef_table">Chef\'s Table</string>
     <string name="recipe_header">Exclusive recipes created by our partner chefs using this week\'s seasonal ingredients.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
