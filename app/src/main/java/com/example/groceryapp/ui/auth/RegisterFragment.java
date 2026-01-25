@@ -1,4 +1,3 @@
-
 package com.example.groceryapp.ui.auth;
 
 import android.os.Bundle;
@@ -6,7 +5,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,45 +41,56 @@ public class RegisterFragment extends Fragment {
         etConfirmPassword = view.findViewById(R.id.etConfirmPassword);
 
         cbTerms = view.findViewById(R.id.cbTerms);
-       MaterialButton btnCreateAccount = view.findViewById(R.id.btnCreateAccount);
-       MaterialButton tvGoToSignIn = view.findViewById(R.id.tvGoToSignIn);
+        MaterialButton btnCreateAccount = view.findViewById(R.id.btnCreateAccount);
+        TextView tvGoToSignIn = view.findViewById(R.id.tvGoToSignIn);
+
 
         btnCreateAccount.setOnClickListener(v -> {
             String name = getText(etFullName);
             String email = getText(etEmail);
-            String pass = getText(etPassword);
+            String password = getText(etPassword);
             String confirm = getText(etConfirmPassword);
 
             if (TextUtils.isEmpty(name)) {
                 etFullName.setError("Enter your name");
-                return;
-            }
-            if (TextUtils.isEmpty(email)) {
-                etEmail.setError("Enter your email");
-                return;
-            }
-            if (pass.length() < 8) {
-                etPassword.setError("Password must be at least 8 characters");
-                return;
-            }
-            if (!pass.equals(confirm)) {
-                etConfirmPassword.setError("Passwords do not match");
-                return;
-            }
-            if (!cbTerms.isChecked()) {
-                Toast.makeText(requireContext(), "Please agree to Terms & Privacy", Toast.LENGTH_SHORT).show();
+                etFullName.requestFocus();
                 return;
             }
 
-            Toast.makeText(requireContext(), "Register success (connect backend later)", Toast.LENGTH_SHORT).show();
+            if (Validation.isValidEmail(email)) {
+                etEmail.setError("Enter a valid email");
+                etEmail.requestFocus();
+                return;
+            }
+
+            if (Validation.isValidPassword(password)) {
+                etPassword.setError("Password must be at least 6 characters");
+                etPassword.requestFocus();
+                return;
+            }
+
+            if (!password.equals(confirm)) {
+                etConfirmPassword.setError("Passwords do not match");
+                etConfirmPassword.requestFocus();
+                return;
+            }
+
+            if (!cbTerms.isChecked()) {
+                Toast.makeText(requireContext(),
+                        "Please agree to Terms & Privacy",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // ✅ Success -> go to Home
+            NavHostFragment.findNavController(RegisterFragment.this)
+                    .navigate(R.id.action_RegisterFragment_to_HomeFragment);
         });
 
+        // ✅ Already have account -> back to SignIn
         tvGoToSignIn.setOnClickListener(v ->
-            NavHostFragment.findNavController(RegisterFragment
-                            .this)
-                    .popBackStack());
-
-
+                NavHostFragment.findNavController(RegisterFragment.this).navigateUp()
+        );
     }
 
     private String getText(TextInputEditText editText) {

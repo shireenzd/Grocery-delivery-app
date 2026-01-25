@@ -38,4 +38,11 @@
         android:id="@+id/registerFragment"
         android:name="com.example.groceryapp.ui.auth.RegisterFragment"
         android:label="Register" />
+    <action
+        android:id="@+id/action_SignInFragment_to_HomeFragment"
+        app:destination="@id/navigation_home" />
+    <action
+        android:id="@+id/action_RegisterFragment_to_HomeFragment"
+        app:destination="@id/navigation_home" />
+
 </navigation>
