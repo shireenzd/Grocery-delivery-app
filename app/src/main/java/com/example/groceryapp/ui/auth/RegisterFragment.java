@@ -18,7 +18,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class RegisterFragment extends Fragment {
+ public class RegisterFragment extends Fragment {
 
     private TextInputEditText etFullName, etEmail, etPassword, etConfirmPassword;
     private MaterialCheckBox cbTerms;
@@ -44,7 +44,6 @@ public class RegisterFragment extends Fragment {
         MaterialButton btnCreateAccount = view.findViewById(R.id.btnCreateAccount);
         TextView tvGoToSignIn = view.findViewById(R.id.tvGoToSignIn);
 
-
         btnCreateAccount.setOnClickListener(v -> {
             String name = getText(etFullName);
             String email = getText(etEmail);
@@ -57,13 +56,13 @@ public class RegisterFragment extends Fragment {
                 return;
             }
 
-            if (Validation.isValidEmail(email)) {
+            if (!Validation.isValidEmail(email)) {
                 etEmail.setError("Enter a valid email");
                 etEmail.requestFocus();
                 return;
             }
 
-            if (Validation.isValidPassword(password)) {
+            if (!Validation.isValidPassword(password)) {
                 etPassword.setError("Password must be at least 6 characters");
                 etPassword.requestFocus();
                 return;
@@ -82,12 +81,16 @@ public class RegisterFragment extends Fragment {
                 return;
             }
 
-            // ✅ Success -> go to Home
+            UserLocalStore store = new UserLocalStore(requireContext());
+            store.saveUser(name, email, password);
+
+            Toast.makeText(requireContext(), "Registered successfully", Toast.LENGTH_SHORT).show();
+
+
             NavHostFragment.findNavController(RegisterFragment.this)
                     .navigate(R.id.action_RegisterFragment_to_HomeFragment);
         });
 
-        // ✅ Already have account -> back to SignIn
         tvGoToSignIn.setOnClickListener(v ->
                 NavHostFragment.findNavController(RegisterFragment.this).navigateUp()
         );

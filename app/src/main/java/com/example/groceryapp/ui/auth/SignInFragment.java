@@ -1,4 +1,5 @@
 package com.example.groceryapp.ui.auth;
+ import com.example.groceryapp.ui.auth.Validation;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,7 +17,8 @@ import com.example.groceryapp.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class SignInFragment extends Fragment {
+
+ public class SignInFragment extends Fragment {
 
     private TextInputEditText etEmail, etPassword;
     private MaterialButton btnSignIn;
@@ -47,15 +49,37 @@ public class SignInFragment extends Fragment {
             String email = getText(etEmail);
             String password = getText(etPassword);
 
-            if (Validation.isValidEmail(email)) {
+
+            if (!Validation.isValidEmail(email)) {
                 etEmail.setError("Enter a valid email");
                 etEmail.requestFocus();
                 return;
             }
 
-            if (Validation.isValidPassword(password)) {
+            if (!Validation.isValidPassword(password)) {
                 etPassword.setError("Password must be at least 6 characters");
                 etPassword.requestFocus();
+                return;
+            }
+
+            // 2) Check if user registered locally
+            UserLocalStore store = new UserLocalStore(requireContext());
+
+            if (!store.isRegistered()) {
+                Toast.makeText(requireContext(),
+                        "You must register first",
+                        Toast.LENGTH_SHORT).show();
+
+                NavHostFragment.findNavController(SignInFragment.this)
+                        .navigate(R.id.action_signInFragment_to_registerFragment);
+                return;
+            }
+
+            // 3) Check login matches saved data
+            if (!store.checkLogin(email, password)) {
+                Toast.makeText(requireContext(),
+                        "Wrong email or password",
+                        Toast.LENGTH_SHORT).show();
                 return;
             }
 
