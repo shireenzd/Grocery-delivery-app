@@ -4,30 +4,56 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.groceryapp.databinding.FragmentHomeBinding;
+import java.util.ArrayList;
+import java.util.List;
+import com.example.groceryapp.R;
 
 public class HomeFragment extends Fragment {
 
-private FragmentHomeBinding binding;
+    private FragmentHomeBinding binding;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+                             ViewGroup container, Bundle savedInstanceState) {
 
-    binding = FragmentHomeBinding.inflate(inflater, container, false);
-    View root = binding.getRoot();
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        RecyclerView recyclerView = binding.recyclerViewHome;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+
+        ProductAdapter adapter = new ProductAdapter();
+        recyclerView.setAdapter(adapter);
+
+        adapter.setProducts(getSampleProducts());
+
         return root;
     }
 
-@Override
+    private List<ProductAdapter.Product> getSampleProducts() {
+        List<ProductAdapter.Product> products = new ArrayList<>();
+
+
+        products.add(new ProductAdapter.Product("1", "Avocado", "CHIANTI, ITALY",
+                "Cold-pressed from century-old groves...", 42, "LIMITED HARVEST", R.drawable.avocado));
+
+        products.add(new ProductAdapter.Product("2", "Blueberry", "MAINE, USA",
+                "Wild blueberries from the coastal regions of Maine.", 28, "ORGANIC", R.drawable.blueberry));
+
+        products.add(new ProductAdapter.Product("3", "Artisan Sourdough", "SAN FRANCISCO, USA",
+                "Traditional 48-hour fermented sourdough bread.", 18, "FRESH BAKED", R.drawable.artisan_sourdough));
+
+
+        return products;
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
