@@ -6,7 +6,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        android:background="@color/cream_50"
         tools:context=".ui.home.HomeFragment">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -14,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:elevation="0dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -27,15 +26,51 @@
                     layout="@layout/layout_banner_home" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingTop="48dp"
+                android:paddingBottom="24dp"
+                android:background="@color/cream_50">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WEEKLY SELECTION"
+                    android:textColor="@color/gold"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Fresh Arrivals"
+                    android:textColor="@color/navy_900"
+                    android:textSize="32sp"
+                    android:fontFamily="serif" />
+
+                <View
+                    android:layout_width="48dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/gold"
+                    android:alpha="0.5" />
+
+            </LinearLayout>
+
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
             android:clipToPadding="false"
+            android:paddingBottom="24dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
