@@ -1,19 +1,15 @@
 package com.example.groceryapp.ui.recipes;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.groceryapp.R;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
-
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
@@ -73,8 +69,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             });
 
             link.setOnClickListener(v -> {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(recipe.webUrl));
-                itemView.getContext().startActivity(browserIntent);
+                if (itemView.getContext() instanceof AppCompatActivity) {
+                    AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
+                    RecipeDetailsFragment bottomSheet = RecipeDetailsFragment.newInstance(recipe);
+                    bottomSheet.show(activity.getSupportFragmentManager(), "RecipeDetailsFragment");
+                }
             });
         }
     }
