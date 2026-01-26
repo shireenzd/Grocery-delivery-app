@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.groceryapp.databinding.FragmentRecipeDetailsBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import java.util.List;
-import java.util.stream.Collectors;
+import com.example.groceryapp.helper.ManagmentCart;
+import com.example.groceryapp.ui.home.ProductAdapter;
 
 public class RecipeDetailsFragment extends BottomSheetDialogFragment {
 
@@ -19,6 +20,7 @@ public class RecipeDetailsFragment extends BottomSheetDialogFragment {
     private static final String ARG_RECIPE = "arg_recipe";
     private Recipe recipe;
     private IngredientAdapter adapter;
+    private ManagmentCart managmentCart;
 
     // factory method to create a new instance, passing the recipe
     public static RecipeDetailsFragment newInstance(Recipe recipe) {
@@ -53,6 +55,8 @@ public class RecipeDetailsFragment extends BottomSheetDialogFragment {
             return;
         }
 
+        managmentCart = new ManagmentCart(getContext());
+
         // Populate the views
         binding.tvRecipeAuthor.setText("Recipe by " + recipe.author);
         binding.tvRecipeTitlePopup.setText(recipe.title);
@@ -68,11 +72,25 @@ public class RecipeDetailsFragment extends BottomSheetDialogFragment {
             List<Ingredient> itemsToAdd = adapter.getUncheckedIngredients();
 
             if (itemsToAdd.isEmpty()) {
-                Toast.makeText(getContext(), "All ingredients are checked!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "All ingredients are already checked!", Toast.LENGTH_SHORT).show();
             } else {
-                // For now, just show a Toast. Later, add cart logic here.
-                String names = itemsToAdd.stream().map(i -> i.name).collect(Collectors.joining(", "));
-                Toast.makeText(getContext(), "Adding to cart: " + names, Toast.LENGTH_LONG).show();
+                for (Ingredient ingredient : itemsToAdd) {
+
+                    ProductAdapter.Product productToAdd = new ProductAdapter.Product(
+                            ingredient.name,    // id
+                            ingredient.name,    // name
+                            "From Recipe",      // origin
+                            "",                 // description
+                            0,               // price
+                            "INGREDIENT",       // tag
+                            0                   // image (0 means no image)
+                    );
+
+                    managmentCart.insertItem(productToAdd);
+                }
+
+                Toast.makeText(getContext(), itemsToAdd.size() + " ingredients added to cart", Toast.LENGTH_LONG).show();
+                dismiss();
             }
         });
     }
