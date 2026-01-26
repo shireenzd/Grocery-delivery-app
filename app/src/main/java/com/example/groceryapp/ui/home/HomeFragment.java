@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.groceryapp.databinding.FragmentHomeBinding;
+import com.example.groceryapp.helper.ManagmentCart; // Added this import
 import java.util.ArrayList;
 import java.util.List;
 import com.example.groceryapp.R;
@@ -16,6 +17,7 @@ import com.example.groceryapp.R;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    private ManagmentCart managmentCart; // This is our "Storage Manager"
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -24,11 +26,15 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        // Initialize the cart manager so we can save items
+        managmentCart = new ManagmentCart(getContext());
+
         RecyclerView recyclerView = binding.recyclerViewHome;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        ProductAdapter adapter = new ProductAdapter();
+        // We pass the managmentCart to the adapter so the button can use it
+        ProductAdapter adapter = new ProductAdapter(managmentCart);
         recyclerView.setAdapter(adapter);
 
         adapter.setProducts(getSampleProducts());
@@ -39,7 +45,7 @@ public class HomeFragment extends Fragment {
     private List<ProductAdapter.Product> getSampleProducts() {
         List<ProductAdapter.Product> products = new ArrayList<>();
 
-
+        // These match your sample exam items
         products.add(new ProductAdapter.Product("1", "Avocado", "CHIANTI, ITALY",
                 "Cold-pressed from century-old groves...", 42, "LIMITED HARVEST", R.drawable.avocado));
 
@@ -48,7 +54,6 @@ public class HomeFragment extends Fragment {
 
         products.add(new ProductAdapter.Product("3", "Artisan Sourdough", "SAN FRANCISCO, USA",
                 "Traditional 48-hour fermented sourdough bread.", 18, "FRESH BAKED", R.drawable.artisan_sourdough));
-
 
         return products;
     }

@@ -5,19 +5,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.groceryapp.R;
+import com.example.groceryapp.helper.ManagmentCart;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
     private List<Product> productList = new ArrayList<>();
+    private ManagmentCart managmentCart;
+
+    public ProductAdapter(ManagmentCart managmentCart) {
+        this.managmentCart = managmentCart;
+    }
 
     public void setProducts(List<Product> products) {
-        productList = products;
+        this.productList = products;
         notifyDataSetChanged();
     }
 
@@ -45,16 +50,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             holder.productBadge.setVisibility(View.GONE);
         }
 
-        if (product.getImageResId() != 0) {
-            holder.productImage.setImageResource(product.getImageResId());
-        } else {
-            holder.productImage.setImageResource(R.drawable.ic_placeholder);
-        }
+        holder.productImage.setImageResource(product.getImageResId());
 
+        // FIXED: Now we pass the WHOLE product object to the cart
         holder.addButton.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(),
-                    "Added " + product.getName() + " to basket!",
-                    Toast.LENGTH_SHORT).show();
+            managmentCart.insertItem(product);
         });
     }
 
@@ -81,12 +81,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
     public static class Product {
-        private String id;
-        private String name;
-        private String origin;
-        private String description;
+        private String id, name, origin, description, badge;
         private double price;
-        private String badge;
         private int imageResId;
 
         public Product(String id, String name, String origin, String description, double price, String badge, int imageResId) {
@@ -99,7 +95,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             this.imageResId = imageResId;
         }
 
-        public String getId() { return id; }
         public String getName() { return name; }
         public String getOrigin() { return origin; }
         public String getDescription() { return description; }
