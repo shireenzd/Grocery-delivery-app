@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="beige_200">#FFE0B2</color>
+    <color name="beige_200">#F3E8D3</color>
     <color name="purple_700">#3700B3</color>
     <color name="black">#000000</color>
     <color name="teal_200">#80DEEA</color>
@@ -13,4 +13,5 @@
     <color name="cream_light">#FFF8F0</color>
     <color name="cream_dark">#F5E6D3</color>
     <color name="light_grey">#94A3B8</color>
+    <color name="dark_grey">#1E1E1E</color>
 </resources>
