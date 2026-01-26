@@ -1,7 +1,7 @@
 package com.example.groceryapp.ui.auth;
- import com.example.groceryapp.ui.auth.Validation;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,40 +15,46 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.groceryapp.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.textfield.TextInputEditText;
 
+ public class RegisterFragment extends Fragment {
 
- public class SignInFragment extends Fragment {
-
-    private TextInputEditText etEmail, etPassword;
-    private MaterialButton btnSignIn;
-    private TextView tvGoToRegister, tvForgotPassword;
-
-    public SignInFragment() { }
+    private TextInputEditText etFullName, etEmail, etPassword, etConfirmPassword;
+    private MaterialCheckBox cbTerms;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_sign_in, container, false);
+        return inflater.inflate(R.layout.register_fragment, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        etFullName = view.findViewById(R.id.etFullName);
         etEmail = view.findViewById(R.id.etEmail);
         etPassword = view.findViewById(R.id.etPassword);
-        btnSignIn = view.findViewById(R.id.btnSignIn);
-        tvGoToRegister = view.findViewById(R.id.tvGoToRegister);
-        tvForgotPassword = view.findViewById(R.id.tvForgotPassword);
+        etConfirmPassword = view.findViewById(R.id.etConfirmPassword);
 
+        cbTerms = view.findViewById(R.id.cbTerms);
+        MaterialButton btnCreateAccount = view.findViewById(R.id.btnCreateAccount);
+        TextView tvGoToSignIn = view.findViewById(R.id.tvGoToSignIn);
 
-        btnSignIn.setOnClickListener(v -> {
+        btnCreateAccount.setOnClickListener(v -> {
+            String name = getText(etFullName);
             String email = getText(etEmail);
             String password = getText(etPassword);
+            String confirm = getText(etConfirmPassword);
 
+            if (TextUtils.isEmpty(name)) {
+                etFullName.setError("Enter your name");
+                etFullName.requestFocus();
+                return;
+            }
 
             if (!Validation.isValidEmail(email)) {
                 etEmail.setError("Enter a valid email");
@@ -62,43 +68,31 @@ import com.google.android.material.textfield.TextInputEditText;
                 return;
             }
 
-            // 2) Check if user registered locally
+            if (!password.equals(confirm)) {
+                etConfirmPassword.setError("Passwords do not match");
+                etConfirmPassword.requestFocus();
+                return;
+            }
+
+            if (!cbTerms.isChecked()) {
+                Toast.makeText(requireContext(),
+                        "Please agree to Terms & Privacy",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             UserLocalStore store = new UserLocalStore(requireContext());
+            store.saveUser(name, email, password);
 
-            if (!store.isRegistered()) {
-                Toast.makeText(requireContext(),
-                        "You must register first",
-                        Toast.LENGTH_SHORT).show();
-
-                NavHostFragment.findNavController(SignInFragment.this)
-                        .navigate(R.id.action_signInFragment_to_registerFragment);
-                return;
-            }
-
-            // 3) Check login matches saved data
-            if (!store.checkLogin(email, password)) {
-                Toast.makeText(requireContext(),
-                        "Wrong email or password",
-                        Toast.LENGTH_SHORT).show();
-                return;
-            }
+            Toast.makeText(requireContext(), "Registered successfully", Toast.LENGTH_SHORT).show();
 
 
-            NavHostFragment.findNavController(SignInFragment.this)
-                    .navigate(R.id.action_SignInFragment_to_HomeFragment);
+            NavHostFragment.findNavController(RegisterFragment.this)
+                    .navigate(R.id.action_RegisterFragment_to_HomeFragment);
         });
 
-
-        tvGoToRegister.setOnClickListener(v ->
-                NavHostFragment.findNavController(SignInFragment.this)
-                        .navigate(R.id.action_signInFragment_to_registerFragment)
-        );
-
-
-        tvForgotPassword.setOnClickListener(v ->
-                Toast.makeText(requireContext(),
-                        "Forgot password coming soon",
-                        Toast.LENGTH_SHORT).show()
+        tvGoToSignIn.setOnClickListener(v ->
+                NavHostFragment.findNavController(RegisterFragment.this).navigateUp()
         );
     }
 
