@@ -75,13 +75,31 @@ import com.google.android.material.textfield.TextInputEditText;
                 return;
             }
 
-            // 3) Check login matches saved data
-            if (!store.checkLogin(email, password)) {
+            // Check if user registered at all
+            if (!store.isRegistered()) {
                 Toast.makeText(requireContext(),
-                        "Wrong email or password",
+                        "You must register first",
                         Toast.LENGTH_SHORT).show();
+
+                NavHostFragment.findNavController(SignInFragment.this)
+                        .navigate(R.id.action_signInFragment_to_registerFragment);
                 return;
             }
+
+
+            if (!store.isEmailRegistered(email)) {
+                etEmail.setError("Email not registered");
+                etEmail.requestFocus();
+                return;
+            }
+
+
+            if (!store.isPasswordCorrect(password)) {
+                etPassword.setError("Wrong password");
+                etPassword.requestFocus();
+                return;
+            }
+
 
 
             NavHostFragment.findNavController(SignInFragment.this)
