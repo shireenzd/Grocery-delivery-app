@@ -38,6 +38,15 @@ public class UserLocalStore {
                 && savedEmail.equals(email)
                 && savedPass.equals(password);
     }
+    public boolean isEmailRegistered(String email) {
+        String savedEmail = prefs.getString(KEY_EMAIL, null);
+        return savedEmail != null && savedEmail.equals(email);
+    }
+
+    public boolean isPasswordCorrect(String password) {
+        String savedPass = prefs.getString(KEY_PASSWORD, null);
+        return savedPass != null && savedPass.equals(password);
+    }
 
     public void clearUser() {
         prefs.edit().clear().apply();
