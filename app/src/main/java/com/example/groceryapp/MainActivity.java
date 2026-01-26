@@ -28,27 +28,26 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
         BottomNavigationView navView = binding.navView;
 
-        // Top-level destinations (bottom nav screens)
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home,
                 R.id.navigation_recipes,
                 R.id.navigation_cart
         ).build();
 
-        androidx.navigation.fragment.NavHostFragment navHostFragment =
+        NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.nav_host_fragment_activity_main);
 
         NavController navController = navHostFragment.getNavController();
 
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
         // Handle BottomNav + Logout visibility based on destination
         navController.addOnDestinationChangedListener(
                 (controller, destination, arguments) -> {
 
-                    if (destination.getId() == R.id.signInFragment) {
+                    if (destination.getId() == R.id.signInFragment || destination.getId() == R.id.registerFragment) {
                         navView.setVisibility(View.GONE);
                         showLogout = false;
                     } else {
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_logout) {
 
-            androidx.navigation.fragment.NavHostFragment navHostFragment =
+            NavHostFragment navHostFragment =
                     (NavHostFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.nav_host_fragment_activity_main);
 
