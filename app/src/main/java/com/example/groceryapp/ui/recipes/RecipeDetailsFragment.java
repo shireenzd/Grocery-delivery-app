@@ -81,7 +81,7 @@ public class RecipeDetailsFragment extends BottomSheetDialogFragment {
                             ingredient.name,    // name
                             "From Recipe",      // origin
                             "",                 // description
-                            0,               // price
+                            ingredient.price,               // price
                             "INGREDIENT",       // tag
                             0                   // image (0 means no image)
                     );

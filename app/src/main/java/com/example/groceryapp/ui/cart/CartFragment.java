@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.groceryapp.databinding.FragmentCartBinding;
 import com.example.groceryapp.helper.ManagmentCart;
-import com.example.groceryapp.ui.CartAdapter;
 import com.example.groceryapp.ui.home.ProductAdapter;
 import java.util.ArrayList;
 

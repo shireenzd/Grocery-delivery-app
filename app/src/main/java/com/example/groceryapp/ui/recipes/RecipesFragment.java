@@ -35,11 +35,11 @@ public class RecipesFragment extends Fragment {
 
         // --- 1. One-Pot Cheesy Pasta ---
         List<Ingredient> pastaIngredients = new ArrayList<>();
-        pastaIngredients.add(new Ingredient("250g Pasta Shells"));
-        pastaIngredients.add(new Ingredient("1 cup Cheddar Cheese"));
-        pastaIngredients.add(new Ingredient("1/2 cup Milk"));
-        pastaIngredients.add(new Ingredient("2 tsp Butter"));
-        pastaIngredients.add(new Ingredient("Salt & Pepper"));
+        pastaIngredients.add(new Ingredient("250g Pasta Shells", 10));
+        pastaIngredients.add(new Ingredient("1 cup Cheddar Cheese", 5));
+        pastaIngredients.add(new Ingredient("1/2 cup Milk", 3.5));
+        pastaIngredients.add(new Ingredient("2 tsp Butter", 1.25));
+        pastaIngredients.add(new Ingredient("Salt & Pepper", 0.2));
 
         String pastaSteps = "Step 1: In a medium saucepan, melt butter over medium heat.\n" +
                 "Step 2: Stir in milk and bring to a simmer.\n" +
@@ -60,10 +60,10 @@ public class RecipesFragment extends Fragment {
 
         // --- 2. Classic Avocado Toast (NOW UPDATED) ---
         List<Ingredient> avocadoIngredients = new ArrayList<>();
-        avocadoIngredients.add(new Ingredient("1 slice of bread"));
-        avocadoIngredients.add(new Ingredient("1/2 ripe avocado"));
-        avocadoIngredients.add(new Ingredient("1 pinch of salt"));
-        avocadoIngredients.add(new Ingredient("1 pinch of red pepper flakes"));
+        avocadoIngredients.add(new Ingredient("1 slice of bread", 2));
+        avocadoIngredients.add(new Ingredient("1/2 ripe avocado", 3.5));
+        avocadoIngredients.add(new Ingredient("1 pinch of salt",0.2));
+        avocadoIngredients.add(new Ingredient("1 pinch of red pepper flakes",0.2));
 
         String avocadoSteps = "Step 1: Toast your slice of bread to your desired crispiness.\n" +
                 "Step 2: While the bread is toasting, mash the avocado in a small bowl.\n" +
@@ -84,11 +84,11 @@ public class RecipesFragment extends Fragment {
 
         // --- 3. Spicy Chicken Stir-Fry (NOW UPDATED) ---
         List<Ingredient> stirFryIngredients = new ArrayList<>();
-        stirFryIngredients.add(new Ingredient("1 lb boneless chicken breast, cubed"));
-        stirFryIngredients.add(new Ingredient("2 cups mixed vegetables (broccoli, carrots)"));
-        stirFryIngredients.add(new Ingredient("1/4 cup soy sauce"));
-        stirFryIngredients.add(new Ingredient("1 tbsp sesame oil"));
-        stirFryIngredients.add(new Ingredient("2 cloves garlic, minced"));
+        stirFryIngredients.add(new Ingredient("1 lb boneless chicken breast, cubed", 15.25));
+        stirFryIngredients.add(new Ingredient("2 cups mixed vegetables (broccoli, carrots)", 5));
+        stirFryIngredients.add(new Ingredient("1/4 cup soy sauce", 2));
+        stirFryIngredients.add(new Ingredient("1 tbsp sesame oil", 2.5));
+        stirFryIngredients.add(new Ingredient("2 cloves garlic, minced", 1.25));
 
         String stirFrySteps = "Step 1: In a large skillet or wok, heat sesame oil over medium-high heat.\n" +
                 "Step 2: Add chicken and cook until browned and cooked through.\n" +
