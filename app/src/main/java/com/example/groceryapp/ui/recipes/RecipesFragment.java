@@ -54,7 +54,8 @@ public class RecipesFragment extends Fragment {
                 "Easy",
                 "Chef John",
                 pastaIngredients,
-                pastaSteps
+                pastaSteps,
+                "https://youtu.be/Pkhqy3OD_DM?si=go4wO0TxH7VIruaf"
         ));
 
         // --- 2. Classic Avocado Toast (NOW UPDATED) ---
@@ -77,7 +78,8 @@ public class RecipesFragment extends Fragment {
                 "Easy",
                 "Erin Lives Whole",
                 avocadoIngredients,
-                avocadoSteps
+                avocadoSteps,
+                "https://www.loveandlemons.com/avocado-toast-recipe/"
         ));
 
         // --- 3. Spicy Chicken Stir-Fry (NOW UPDATED) ---
@@ -101,7 +103,8 @@ public class RecipesFragment extends Fragment {
                 "Medium",
                 "Ali Martin",
                 stirFryIngredients,
-                stirFrySteps
+                stirFrySteps,
+                "https://www.budgetbytes.com/spicy-chicken-and-vegetable-stir-fry/"
         ));
 
         RecyclerView recyclerView = binding.recyclerViewRecipes;

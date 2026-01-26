@@ -12,8 +12,9 @@ public class Recipe implements Serializable {
     public String author;
     public List<Ingredient> ingredients;
     public String recipeSteps;
+    public String webUrl;
 
-    public Recipe(String videoId, String title, String description, String minutes, String level, String author, List<Ingredient> ingredients, String recipeSteps) {
+    public Recipe(String videoId, String title, String description, String minutes, String level, String author, List<Ingredient> ingredients, String recipeSteps, String webUrl) {
         this.videoId = videoId;
         this.title = title;
         this.description = description;
@@ -22,5 +23,6 @@ public class Recipe implements Serializable {
         this.author = author;
         this.ingredients = ingredients;
         this.recipeSteps = recipeSteps;
+        this.webUrl = webUrl;
     }
 }

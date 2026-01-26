@@ -54,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:lineSpacingExtra="4dp"
+        android:textSize="18sp"
         tools:text="Step 1: Boil water.\nStep 2: Add pasta.\nStep 3: Add cheese and stir until melted." />
 
     <Button
@@ -61,6 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Add Unchecked Ingredients to Cart" />
+        android:textColor="@color/black"
+        android:text="Add Ingredients to Cart" />
 
 </LinearLayout>
