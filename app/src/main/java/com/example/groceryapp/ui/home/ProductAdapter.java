@@ -52,7 +52,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
         holder.productImage.setImageResource(product.getImageResId());
 
-        // FIXED: Now we pass the WHOLE product object to the cart
         holder.addButton.setOnClickListener(v -> {
             managmentCart.insertItem(product);
         });

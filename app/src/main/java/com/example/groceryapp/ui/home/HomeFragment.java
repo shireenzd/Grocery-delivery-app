@@ -17,7 +17,7 @@ import com.example.groceryapp.R;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    private ManagmentCart managmentCart; // This is our "Storage Manager"
+    private ManagmentCart managmentCart;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -26,14 +26,12 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Initialize the cart manager so we can save items
         managmentCart = new ManagmentCart(getContext());
 
         RecyclerView recyclerView = binding.recyclerViewHome;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        // We pass the managmentCart to the adapter so the button can use it
         ProductAdapter adapter = new ProductAdapter(managmentCart);
         recyclerView.setAdapter(adapter);
 
@@ -45,7 +43,6 @@ public class HomeFragment extends Fragment {
     private List<ProductAdapter.Product> getSampleProducts() {
         List<ProductAdapter.Product> products = new ArrayList<>();
 
-        // These match your sample exam items
         products.add(new ProductAdapter.Product("1", "Avocado", "CHIANTI, ITALY",
                 "Cold-pressed from century-old groves...", 42, "LIMITED HARVEST", R.drawable.avocado));
 
